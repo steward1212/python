@@ -1,5 +1,6 @@
 import logging
 import sys
+import cv2
 from datetime import datetime
 
 import tensorflow as tf
@@ -51,18 +52,18 @@ def main():
         3. Write a list comprehension to iterate through all frames,
            and make it be processed by Tensorflow.
         '''
+        
         processed = [
             session.run(out, feed_dict={image: [frame]})
             for frame in frames
         ]
-
+        
         '''
         4. Pass the results as a argument into function
         '''
         save_video('result.mp4',
                    fps=30, h=shape[1], w=shape[2],
-                   frames=frames)
-
+                   frames=processed)
         logging.info("Processing took %f" % (
             (datetime.now() - start_time).total_seconds()))
         logging.info("Done")
